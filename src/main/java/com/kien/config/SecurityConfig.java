@@ -1,44 +1,74 @@
 package com.kien.config;
 
-import com.kien.service.user.DetailsService;
-import com.kien.service.user.UserService;
-import com.kien.service.user.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackages = {"com.kien.service"})
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new DetailsService();
-    }
+    private DataSource dataSource;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService());
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) {
+        try {
+            auth
+                    .jdbcAuthentication()
+                    .dataSource(dataSource)
+                    .usersByUsernameQuery(
+                            "SELECT username,password,true FROM users WHERE username=?")
+                    .authoritiesByUsernameQuery(
+                            "SELECT u.username,r.role FROM users u INNER JOIN " +
+                                    "role_user ru ON u.id = ru.user_id " +
+                                    "INNER JOIN roles r ON r.role = ru.role " +
+                                    "WHERE username=?")
+                    .passwordEncoder(passwordEncoder());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/*").permitAll()
+        http
+                .formLogin()
+                    .loginPage("/login")
+                    .loginProcessingUrl("/login")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .failureUrl("/loginfail")
+                    .defaultSuccessUrl("/users")
                 .and()
-                .csrf().disable();
+                .authorizeRequests()
+                    .anyRequest()
+                    .permitAll()
+                .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/logoutsuccess")
+                .and()
+                .csrf()
+                .disable();
     }
 
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 }

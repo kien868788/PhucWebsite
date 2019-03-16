@@ -1,10 +1,13 @@
 package com.kien.model.post;
 
+import com.kien.model.CategorizedPost;
 import com.kien.model.user.User;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Post {
 
@@ -13,13 +16,13 @@ public class Post {
     @NotNull
     private String title;
 
-    @NotNull
-    private String localtion;
-
     private Date dateOn;
 
     @NotNull
     private BigDecimal price;
+
+    @NotNull
+    private double square;
 
     private String description;
 
@@ -27,20 +30,21 @@ public class Post {
 
     private User user;
 
+    private Set<CategorizedPost> categorizedPosts = new HashSet<>();
+
     public Post() {}
 
-    public Post(@NotNull String title, @NotNull String localtion, @NotNull BigDecimal price,User user) {
+    public Post(@NotNull String title, @NotNull String location, @NotNull BigDecimal price,User user) {
         this.title = title;
-        this.localtion = localtion;
         this.price = price;
         this.user = user;
     }
 
     public Long getId() {
-        return this.id;
+        return id;
     }
 
-    public void setId() {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -52,22 +56,6 @@ public class Post {
         this.title = title;
     }
 
-    public String getLocaltion() {
-        return localtion;
-    }
-
-    public void setLocaltion(String localtion) {
-        this.localtion = localtion;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Date getDateOn() {
         return dateOn;
     }
@@ -76,16 +64,20 @@ public class Post {
         this.dateOn = dateOn;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public BigDecimal getPrice() {
+        return price;
     }
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public double getSuperficies() {
+        return square;
+    }
+
+    public void setSuperficies(double square) {
+        this.square = square;
     }
 
     public String getDescription() {
@@ -102,5 +94,29 @@ public class Post {
 
     public void setTag(Tag tag) {
         this.tag = tag;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<CategorizedPost> getCategorizedPosts() {
+        return categorizedPosts;
+    }
+
+    public void setCategorizedPosts(Set<CategorizedPost> categorizedPosts) {
+        this.categorizedPosts = categorizedPosts;
+    }
+
+    public double getSquare() {
+        return square;
+    }
+
+    public void setSquare(double square) {
+        this.square = square;
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vn">
+<html lang="vn" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Expires" content="30" />
@@ -22,6 +22,7 @@
 
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <link rel="stylesheet" th:href="@{/resources/styles/css.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -55,32 +56,7 @@
     <meta name="p:domain_verify" content="1d379aa135ee8a5e9888c7b0eb458a9e"/>
 </head>
 <body>
-<header id="header">
-    <div class="top-bar">
-        <div class="container">
-            <div class="row">
-                <div class="top-phone col-12 col-md-8">
-                    <h1 >  Nhà đất Đà Nẵng, mua bán bất động sản nhà đất Đà Nẵng chính chủ
-                    </h1>
-                </div>
-                <div class="login-logout col-12 col-md-4">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="logo col-12 col-md-2">
-                <a href="https://danangland.org" title="">
-                    <img th:src="@{/resources/upload/logo_1.png}" alt="Nhà đất Đà Nẵng, mua bán bất động sản nhà đất Đà Nẵng chính chủ" title="Nhà đất Đà Nẵng, mua bán bất động sản nhà đất Đà Nẵng chính chủ" class="img-fluid center-block" width="auto" height="auto">
-                </a>
-            </div>
-            <div class="col-12 col-md-10 d-none d-md-block d-lg-block">
-                <img src="https://danangland.org/assets/frontend/images/banner-batdongsan.jpg" alt="" title="" class="img-fluid pull-right" width="auto" height="auto">
-            </div>
-        </div>
-    </div>
-</header>
+<div th:replace="~{fragments/header :: header}"></div>
 <nav id="menu">
     <nav class="clearfix">
         <div class="container d-none d-md-block d-lg-block">
@@ -421,34 +397,11 @@
     </div>
     </div>
 </section>
-<footer id="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-8">
-                <div class="title">Info</div>
-                <p>
-                    Danangland chuyên hỗ trợ đất, nhà chính chủ với tiêu chí tìm hàng siêu rẻ, chất lượng cho người có nhu cầu. Tin rao sẽ được kiểm duyệt kỹ trước khi đăng. Cần nhu cầu mua bán nhà đất Đà Nẵng xin liên hệ 0917.365.882 hoặc đăng ký tại website.
-                </p>
-                <div class="share-social">
-                    <a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                    <a href=""><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                    <a href=""><i class="fa fa-youtube" aria-hidden="true"></i></a>
-                    <a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-4">
-                <div class="title">Contact</div>
-                <p><i class="fa fa-mobile" aria-hidden="true"></i> Hotline: 0917 365 882</p>
-                <p><i class="fa fa-envelope-o" aria-hidden="true"></i> Email: danangland.org@gmail.com</p>
-                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ: 640 đường 2 tháng 9, Hoà Cường Nam, Hải Châu, Đà Nẵng, Vietnam</p>
-            </div>
-        </div>
-    </div>
-</footer>
+<footer th:insert="~{fragments/footer :: footer}"></footer>
 <a class="back-to-top">
     <i class="fa fa-angle-double-up" aria-hidden="true"></i>
 </a>
-<script src="/assets/frontend/js/app.js?id=0c51bbb5e2bedc3e594a"></script>
+<script th:src="@{/resources/scripts/js.js}"></script>
 <div id="fb-root"></div>
 <script type="text/javascript">
     Common.init();

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header id="header" th:fragment="header">
+    <div class="top-bar">
+        <div class="container">
+            <div class="row">
+                <div class="top-phone col-12 col-md-8">
+                    <h1> Nhà đất Đà Nẵng, mua bán bất động sản nhà đất Đà Nẵng chính chủ
+                    </h1>
+                </div>
+                <div th:if="${isLogin}" class="login-logout col-12 col-md-4">
+                    <ul>
+                        <li>
+                            <a th:href="@{/logout}">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                Log out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="logo col-12 col-md-2">
+                <a href="https://danangland.org" title="">
+                    <img th:src="@{/resources/upload/logo_1.png}"
+                         alt="Nhà đất Đà Nẵng, mua bán bất động sản nhà đất Đà Nẵng chính chủ"
+                         title="Nhà đất Đà Nẵng, mua bán bất động sản nhà đất Đà Nẵng chính chủ"
+                         class="img-fluid center-block" width="auto" height="auto">
+                </a>
+            </div>
+            <div class="col-12 col-md-10 d-none d-md-block d-lg-block">
+                <img src="https://danangland.org/assets/frontend/images/banner-batdongsan.jpg" alt="" title=""
+                     class="img-fluid pull-right" width="auto" height="auto">
+            </div>
+        </div>
+    </div>
+</header>
+</body>
+</html>

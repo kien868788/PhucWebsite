@@ -1,7 +1,5 @@
 package com.kien.config;
 
-import com.kien.service.user.UserService;
-import com.kien.service.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -12,17 +10,14 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import javax.swing.*;
-
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.kien"})
+@ComponentScan(basePackages = "com.kien")
 public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
@@ -95,6 +90,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
+        registry.addViewController("/login").setViewName("login");
     }
 
     @Override

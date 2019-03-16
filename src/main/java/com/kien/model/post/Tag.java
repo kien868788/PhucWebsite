@@ -2,11 +2,8 @@ package com.kien.model.post;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 public class Tag {
-
-    private Long id;
 
     @NotNull
     private String name;
@@ -15,6 +12,7 @@ public class Tag {
     private String phonenumber;
 
     private String zalo;
+
     private String skype;
 
     @Email
@@ -22,8 +20,9 @@ public class Tag {
 
     @NotNull
     private String location;
+
     private String direction;
-    private Date onDate;
+
     private String status;
 
     public Tag() {}
@@ -32,14 +31,6 @@ public class Tag {
         this.name = name;
         this.phonenumber = phoneNumber;
         this.location = location;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -96,14 +87,6 @@ public class Tag {
 
     public void setDirection(String direction) {
         this.direction = direction;
-    }
-
-    public Date getOnDate() {
-        return onDate;
-    }
-
-    public void setOnDate(Date onDate) {
-        this.onDate = onDate;
     }
 
     public String getStatus() {
