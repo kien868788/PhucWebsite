@@ -3,6 +3,7 @@ package com.kien.model.post;
 import com.kien.model.CategorizedPost;
 import com.kien.model.user.User;
 
+
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -28,17 +29,11 @@ public class Post {
 
     private Tag tag;
 
-    private User user;
+    private User postedBy;
 
     private Set<CategorizedPost> categorizedPosts = new HashSet<>();
 
     public Post() {}
-
-    public Post(@NotNull String title, @NotNull String location, @NotNull BigDecimal price,User user) {
-        this.title = title;
-        this.price = price;
-        this.user = user;
-    }
 
     public Long getId() {
         return id;
@@ -97,11 +92,11 @@ public class Post {
     }
 
     public User getUser() {
-        return user;
+        return postedBy;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(User postedBy) {
+        this.postedBy = postedBy;
     }
 
     public Set<CategorizedPost> getCategorizedPosts() {

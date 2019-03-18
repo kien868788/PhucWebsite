@@ -9,7 +9,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("postService")
 public class PostServiceImpl implements PostService{
@@ -43,18 +45,40 @@ public class PostServiceImpl implements PostService{
         String sql = "SELECT p.id,p.dateOn,p.superficies,p.title,p.dateOn FROM post p " +
                 "INNER JOIN category_post cp ON p.id = cp.post_id " +
                 "INNER JOIN category c ON cp.category_id = c.category_id " +
-                "WHERE c.name = " + category.getName();
-        return jdbcTemplate.query(sql,postSumaryRowMapper);
+                "WHERE c.name =? ";
+        return jdbcTemplate.query(sql,new Object[]{category.getName()},postSumaryRowMapper);
     }
 
     @Override
-    public Page<Post> findSumaryByCategoryAndPage(Pageable pageable) {
+    public Page<PostSummary> findSumaryByCategoryAndPage(Pageable pageable) {
         return null;
     }
 
     @Override
     public Post findById(Long id) {
-        return null;
+        String sql = "SELECT p.*, u.id AS user_id, u.firstName, u.lastName FROM posts p " +
+                "INNER JOIN users u ON p.userId = u.id " +
+                "INNER JOIN location lc ON lc.id = p.locationId " +
+                "WHERE p.id =?";
+        jdbcTemplate.query(sql,new Object[]{id}, rs -> {
+            Post post = new Post();
+            Map<Long,Post> map = new HashMap<>();
+            while(rs.next()) {
+                Long postId = rs.getLong("id");
+                post = map.get(postId);
+                if(post == null) {
+                    post = new Post();
+                    post.setId(postId);
+                    post.setDateOn(rs.getDate("dateOn"));
+                    post.setTitle(rs.getNString("title"));
+                    post.setDescription(rs.getNString("description"));
+                    post.setSquare(rs.getDouble("supercifies"));
+                }
+            }
+
+
+            return post;
+        });
     }
 
 

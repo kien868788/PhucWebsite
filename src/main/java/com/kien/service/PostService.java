@@ -10,7 +10,7 @@ import java.util.List;
 public interface PostService {
     List<PostSummary> findAllSumary();
     List<PostSummary> findSumaryByCategory(Category category);
-    Page<Post> findSumaryByCategoryAndPage(Pageable pageable);
+    Page<PostSummary> findSumaryByCategoryAndPage(Pageable pageable);
 
     Post findById(Long id);
 

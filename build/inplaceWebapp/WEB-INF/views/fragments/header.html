@@ -13,7 +13,7 @@
                     <h1> Nhà đất Đà Nẵng, mua bán bất động sản nhà đất Đà Nẵng chính chủ
                     </h1>
                 </div>
-                <div th:if="${isLogin}" class="login-logout col-12 col-md-4">
+                <div sec:authorize="${isAuthenticated()}" class="login-logout col-12 col-md-4">
                     <ul>
                         <li>
                             <a th:href="@{/logout}">

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/resources/styles/css.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<div id="toolbar-container"></div>
+<div id="editor"></div>
+<footer th:insert="~{fragments/footer :: footer}"></footer>
+<a class="back-to-top">
+    <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+</a>
+<script th:src="@{/resources/scripts/js.js}"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/decoupled-document/ckeditor.js"></script>
+<div id="fb-root"></div>
+<script type="text/javascript">
+    DecoupledEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+        const toolbarContainer = document.querySelector('#toolbar-container');
+        toolbarContainer.appendChild(editor.ui.view.toolbar.element);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+    Common.init();
+</script>
+</body>
+</html>
